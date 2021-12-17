@@ -1,0 +1,173 @@
+@mixin border-1px($color) {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    border: 1px solid $color;
+    border-radius: 8px;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+  }
+}
+
+@mixin border-left-1px($color, $height) {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    height: $height * 2;
+    margin: auto;
+    border-left: 1px solid $color;
+    transform: scaleY(0.5);
+  }
+}
+
+@mixin border-bottom-1px($color) {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-bottom: 1px solid $color;
+    transform: scaleY(0.5);
+    transform-origin: 50% 100%;
+  }
+}
+
+@mixin border-top-1px($color) {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    border-bottom: 1px solid $color;
+    transform: scaleY(0.5);
+    transform-origin: 50% 100%;
+  }
+}
+
+// 不换行
+@mixin no-wrap() {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+// 扩展点击区域
+@mixin extend-click() {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    z-index: 10;
+  }
+}
+
+// 绝对定位居中
+@mixin position-center($position) {
+  position: $position;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+// 绝对定位居中2
+@mixin absolute-center($width, $height) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -$width;
+  margin-top: -$height;
+}
+
+// transform居中
+@mixin transform-center() {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  margin: auto;
+}
+
+// 背景图片
+@mixin bg($url) {
+  background-image: url($url);
+  background-size: 100% 100%;
+}
+
+// 字重medium
+@mixin font-medium {
+  font-family: PingFangSC-Medium;
+  font-weight: 700;
+  font-weight: 500;
+}
+
+@mixin font-semiBold {
+  font-family: PingFangSC-Semibold;
+  font-weight: 700;
+  font-weight: 600;
+}
+
+// 文字的居中
+@mixin fontCenter($fontSize, $lineHeight) {
+  font-size: $fontSize;
+  line-height: $lineHeight;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+@mixin safeBottom {
+  @supports (bottom: constant(safe-area-inset-bottom)) or (bottom: env(safe-area-inset-bottom)) {
+    padding-bottom: constant(safe-area-inset-bottom);
+    /* 兼容 iOS < 11.2 */
+    padding-bottom: env(safe-area-inset-bottom);
+    /* 兼容 iOS >= 11.2 */
+  }
+}
+
+@mixin iPadAdapter {
+  @media screen and (min-width: 640px) {
+    @content;
+  }
+}
+
+@mixin smallAdapter {
+  @media screen and (max-width: 340px) {
+    @content
+  }
+}
+
+// 背景图片
+@mixin bg-image($url) {
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-image: url($url + "@2x.png");
+
+  @media (-webkit-min-device-pixel-ratio: 3),
+  (min-device-pixel-ratio: 3) {
+    background-image: url($url + "@3x.png")
+  }
+}
